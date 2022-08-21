@@ -20,8 +20,9 @@
         </v-row>
       </v-col>
       <v-col md="8" cols="12" class="user-page__content">
-        <AlbumsList></AlbumsList>
-        <PostsList></PostsList>
+        <AlbumsList v-if="page!=='posts'"></AlbumsList>
+        <SearchInput @input="search" v-if="page!=='albums'"></SearchInput>
+        <PostsList :search-string="searchString" v-if="page!=='albums'"></PostsList>
       </v-col>
     </v-row>
     <v-progress-circular class="user-page__progress" indeterminate :size="80" color="primary" v-else-if="user===null"/>
@@ -36,23 +37,31 @@
 import AlbumsList from "@/components/AlbumsList";
 import PostsList from "@/components/PostsList";
 import {mapActions, mapGetters} from "vuex";
+import SearchInput from "@/components/SearchInput";
 export default {
   name: "UserPage",
-  components: {PostsList, AlbumsList},
+  components: {SearchInput, PostsList, AlbumsList},
   data() {
     return {
-      user: null
+      user: null,
+      searchString: "",
     }
   },
   computed: {
     ...mapGetters({
       users: "getUsers"
-    })
+    }),
+    page() {
+      return this.$route.query.page;
+    }
   },
   methods: {
     ...mapActions({
       fetchUsers: "fetchUsers"
-    })
+    }),
+    search(value) {
+      this.searchString = value
+    }
   },
   mounted() {
     if (this.users.length===0) {
@@ -88,19 +97,17 @@ export default {
     vertical-align: top;
     margin-top: 5px;
     padding: 0 20px 0 5px;
+    float: right;
     height: 20px !important;
     .v-icon {
       margin-left: 5px;
-      position: absolute;
+      position: absolute !important;
       right:  3px;
       top: 3px;
     }
   }
   &__error {
     margin: auto;
-    h2 {
-      margin-bottom: 30px;
-    }
   }
   a {
     text-decoration: none;

@@ -21,5 +21,6 @@ export default {
 .user-card {
   margin: 10px;
   cursor: pointer;
+  height: 200px;
 }
 </style>

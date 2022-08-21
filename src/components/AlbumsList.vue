@@ -1,10 +1,10 @@
 <template>
 <div class="albums">
-  <h2>Список альбомов пользователя</h2>
+  <h2>Список альбомов пользователя <router-link :to="{query: {page: 'albums'}}"><v-btn icon color="info"><v-icon>mdi-open-in-new</v-icon></v-btn></router-link></h2>
   <v-container class="users-list__grid" v-if="userAlbums!==undefined && userAlbums!==null">
     <v-flex d-flex>
       <v-layout wrap >
-        <v-flex v-for="album in userAlbums.slice((page-1)*2, page*2)" :key="album.id">
+        <v-flex v-for="album in showAll? userAlbums: userAlbums.slice((page-1)*2, page*2)" :key="album.id">
           <AlbumItem :photos="album.photos"/>
         </v-flex>
       </v-layout>
@@ -13,6 +13,7 @@
   <v-progress-circular class="albums__progress" indeterminate :size="80" color="primary" v-else></v-progress-circular>
   <div class="text-center"  v-if="userAlbums" >
     <v-pagination
+        v-if="!showAll"
         v-model="page"
         :length="Math.round(userAlbums.length / 2) "
         circle
@@ -31,6 +32,11 @@ export default {
     return {
       page: 1,
       userAlbums: null
+    }
+  },
+  computed: {
+    showAll() {
+      return this.$route.query.page==="albums"
     }
   },
 

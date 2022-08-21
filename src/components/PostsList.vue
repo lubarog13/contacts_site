@@ -1,8 +1,8 @@
 <template>
 <div class="posts">
-  <h2>Посты пользователя:</h2>
-  <v-list two-line v-if="posts">
-    <div v-for="post in posts.slice((page-1) * 10, page * 10)" :key="post.id">
+  <h2>Посты пользователя: <router-link :to="{query: {page: 'posts'}}"><v-btn icon color="info"><v-icon>mdi-open-in-new</v-icon></v-btn></router-link></h2>
+  <v-list two-line v-if="posts" id="posts">
+    <div v-for="post in filteredPosts.slice((page-1) * 10, page * 10)" :key="post.id">
       <v-list-item>
       <v-list-item-content>
         <v-list-item-title v-text="post.title">
@@ -35,7 +35,7 @@
       v-else
       type="article, actions"
   ></v-skeleton-loader>
-  <div class="text-center"  v-if="posts && posts.length>10" >
+  <div class="text-center"  v-if="posts && filteredPosts.length>10" >
     <v-pagination
         v-model="page"
         :length="Math.round(posts.length / 10) "
@@ -48,6 +48,7 @@
 <script>
 export default {
   name: "PostsList",
+  props: ["searchString"],
   data() {
     return {
       page: 1,
@@ -64,6 +65,11 @@ export default {
         post.showComments=!post.showComments
       }
       this.$forceUpdate()
+    }
+  },
+  computed: {
+    filteredPosts() {
+      return this.posts.filter(post => post.title.includes(this.searchString) || post.body.includes(this.searchString))
     }
   },
   mounted() {

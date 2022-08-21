@@ -36,12 +36,16 @@ export default {
        height: 100% !important;
      }
    &__controls__item {
-     width: 10px;
-     height: 10px;
+     width: 10px !important;
+     height: 10px !important;
    }
-    .mdi-chevron-right {
+    .mdi-chevron-right, .mdi-chevron-left {
       font-size: 20px !important;
     }
   }
+}
+.v-skeleton-loader {
+  width: 90% !important;
+  height: 200px;
 }
 </style>
