@@ -42,6 +42,9 @@ h2 {
     font-size: 25px;
   }
 }
+.v-btn--fab {
+  z-index: 20 !important;
+}
 @keyframes fadeIn {
   from {
     opacity: 0;

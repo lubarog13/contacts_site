@@ -68,7 +68,6 @@ export default new Vuex.Store({
       }
     },
     fetchComments: async ({state, commit}, {userId, postId}) => {
-      console.log(postId)
       let post = state.posts[userId].filter(post => post.id===postId)[0]
       if(!post.comments){
         await axios.get(`${baseURL}posts/${postId}/comments/`).then(res => {
@@ -76,6 +75,11 @@ export default new Vuex.Store({
           commit('setComments', {userId: userId, postId: postId, comments: res.data})
         })
       }
+    },
+    addUserPost: async ({state, commit}, post) => {
+      await axios.post(baseURL+'posts', post).then(res => {
+        commit('setPosts', {userId: post.userId, posts: [...state.posts[post.userId], res.data]})
+      })
     }
   },
 })

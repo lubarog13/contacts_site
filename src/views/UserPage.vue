@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       user: null,
-      searchString: "",
+      searchString: ""
     }
   },
   computed: {
@@ -61,7 +61,7 @@ export default {
     }),
     search(value) {
       this.searchString = value
-    }
+    },
   },
   mounted() {
     if (this.users.length===0) {

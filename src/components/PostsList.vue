@@ -39,21 +39,53 @@
   <div class="text-center"  v-if="posts && filteredPosts.length>10" >
     <v-pagination
         v-model="page"
-        :length="Math.round(posts.length / 10) "
+        :length="Math.floor(posts.length / 10) +1"
         circle
     ></v-pagination>
   </div>
+  <v-btn
+      color="pink"
+      dark
+      fixed
+      bottom
+      right
+      fab
+      @click="showNewPost=!showNewPost"
+  >
+    <v-icon>mdi-plus</v-icon>
+  </v-btn>
+  <AddPostForm v-if="showNewPost" :user-id="posts[0].userId" @close="newPost"/>
+  <v-snackbar
+      v-model="snackbar"
+  >
+    Добавлен новый пост
+
+    <template v-slot:action="{ attrs }">
+      <v-btn
+          color="pink"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </template>
+  </v-snackbar>
 </div>
 </template>
 
 <script>
+import AddPostForm from "@/components/AddPostForm";
 export default {
   name: "PostsList",
   props: ["searchString"],
+  components: {AddPostForm},
   data() {
     return {
       page: 1,
-      posts: null
+      posts: null,
+      showNewPost: false,
+      snackbar: false
     }
   },
   methods: {
@@ -66,6 +98,14 @@ export default {
         post.showComments=!post.showComments
       }
       this.$forceUpdate()
+    },
+    newPost() {
+      this.snackbar=true
+      setTimeout(() => {
+        this.snackbar=false
+      }, 5000)
+      this.showNewPost = false
+      this.posts = this.$store.getters["getUserPosts"]({userId: this.$route.params.id})
     }
   },
   computed: {
