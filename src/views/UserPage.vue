@@ -79,6 +79,7 @@ export default {
 .user-page {
   display: flex;
   min-height: 100%;
+  animation: 1.5s fadeIn ease-out;
   &__profile {
     margin-top: 50px;
     h1 {
@@ -96,7 +97,7 @@ export default {
     position: relative;
     vertical-align: top;
     margin-top: 5px;
-    padding: 0 20px 0 5px;
+    padding: 0 20px 0 5px !important;
     float: right;
     height: 20px !important;
     .v-icon {

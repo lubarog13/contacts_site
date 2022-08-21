@@ -3,18 +3,19 @@
   <h2>Посты пользователя: <router-link :to="{query: {page: 'posts'}}"><v-btn icon color="info"><v-icon>mdi-open-in-new</v-icon></v-btn></router-link></h2>
   <v-list two-line v-if="posts" id="posts">
     <div v-for="post in filteredPosts.slice((page-1) * 10, page * 10)" :key="post.id">
+      <v-card elevation="1">
       <v-list-item>
       <v-list-item-content>
         <v-list-item-title v-text="post.title">
         </v-list-item-title>
         <v-card-text v-text="post.body">
         </v-card-text>
-        <v-divider></v-divider>
       </v-list-item-content>
       <v-list-item-action>
         <v-btn icon @click="showComments(post)"><v-icon color="primary">mdi-message-text</v-icon></v-btn>
       </v-list-item-action>
       </v-list-item>
+      </v-card>
       <v-list-item>
         <div class="posts__comments" v-if="post.showComments && post.comments">
           <h4>Комментарии:</h4>
@@ -83,5 +84,9 @@ export default {
 <style lang="scss" scoped>
 .posts {
   margin-top: 30px;
+  &__comments{
+    width: 100%;
+    margin-top: 20px;
+  }
 }
 </style>

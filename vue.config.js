@@ -2,7 +2,7 @@ const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   publicPath: process.env.NODE_ENV === "production" ? "/contacts_site/" : "/",
   productionSourceMap: false,
-  indexPath: 'index.php',
+  indexPath: 'index.html',
   transpileDependencies: [
     'vuetify'
   ]

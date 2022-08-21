@@ -1,4 +1,5 @@
 <template>
+
 <div class="album" v-if="photos!==undefined">
   <v-carousel hide-delimiter-background
               show-arrows-on-hover>
@@ -30,7 +31,7 @@ export default {
   width: 200px;
   height: 200px;
   margin-bottom: 20px;
-  .v-carousel {
+.v-carousel {
     height: 100% !important;
      &__item {
        height: 100% !important;

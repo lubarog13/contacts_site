@@ -42,4 +42,13 @@ h2 {
     font-size: 25px;
   }
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+
+}
 </style>

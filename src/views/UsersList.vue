@@ -5,7 +5,7 @@
   <v-container class="users-list__grid" v-if="users.length>0">
     <v-flex d-flex>
       <v-layout wrap>
-      <v-flex md4 v-for="user in filteredUsers" :key="user.id">
+      <v-flex md4 v-for="user in filteredUsers" :key="user.id" class="users-list__group">
         <UserItem :user="user" @click.native="selectUser(user.id)"/>
       </v-flex>
       </v-layout>
@@ -61,8 +61,20 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  overflow-x: hidden;
   height: 100%;
-  &__progress {
+  &__group {
+    --xyz-rotate-x: 90deg;
+    --xyz-rotate-z: -180deg;
+    --xyz-origin: -200%;
+    --xyz-stagger: 0.1s;
+    --xyz-duration: 1.5s;
+    --xyz-perspective: 100px;
+    --xyz-translate-z: 100px;
+    --xyz-translate-y: 10vh;
+
+  }
+&__progress {
       margin: auto;
    }
 }
